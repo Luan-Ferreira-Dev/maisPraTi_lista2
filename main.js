@@ -1510,14 +1510,14 @@ const t49 ={
     nome: "Transações financeiras",
     programa: () => {
         let transacoesFinanceiras = [
-            { id: 1, valor: 100, data: "13-06-2024", categoria: "Transferências" },
+            { id: 1, valor: 100, data: "13-06-2024", categoria: "Lazer" },
             { id: 2, valor: 1000, data: "13-06-2024", categoria: "Impostos" },
             { id: 3, valor: 50, data: "13-06-2024", categoria: "Gastos Médicos" },
             { id: 4, valor: 50, data: "13-06-2024", categoria: "Doações" },
             { id: 5, valor: 100, data: "13-06-2024", categoria: "Seguro" },
             { id: 6, valor: 500, data: "13-06-2024", categoria: "Doações" },
             { id: 7, valor: 400, data: "13-06-2024", categoria: "Impostos" },
-            { id: 8, valor: 300, data: "13-06-2024", categoria: "Transferências" },
+            { id: 8, valor: 300, data: "13-06-2024", categoria: "Lazer" },
             { id: 9, valor: 100, data: "13-06-2024", categoria: "Gastos Médicos" },
             { id: 10, valor: 700, data: "13-06-2024", categoria: "Gastos Médicos" },
             { id: 11, valor: 500, data: "13-06-2024", categoria: "Transporte" },
@@ -1529,10 +1529,11 @@ const t49 ={
             for (let transacao of transacoes) {
                 if (!(objeto[transacao.categoria])) {
                     objeto[transacao.categoria] = transacoes.filter((elemento) => elemento.categoria === transacao.categoria);
-                    let subtotal = `[Subtotal] ${transacao.categoria}`;
-                    objeto[subtotal] = objeto[transacao.categoria].reduce((accumulator, transacao) => accumulator + transacao.valor, 0);
+                    objeto[transacao.categoria].push({'Subtotal': objeto[transacao.categoria].reduce((accumulator, transacao) => accumulator + transacao.valor, 0)})
                 }
             }
+            let categorias = Object.keys(objeto);
+            categorias.forEach((categoria) => objeto[categoria].forEach((item) => delete item.categoria));
             return objeto;
         }
 
