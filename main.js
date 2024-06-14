@@ -1529,7 +1529,7 @@ const t49 ={
             for (let transacao of transacoes) {
                 if (!(objeto[transacao.categoria])) {
                     objeto[transacao.categoria] = transacoes.filter((elemento) => elemento.categoria === transacao.categoria);
-                    let subtotal = `subtotal ${transacao.categoria}`;
+                    let subtotal = `[Subtotal] ${transacao.categoria}`;
                     objeto[subtotal] = objeto[transacao.categoria].reduce((accumulator, transacao) => accumulator + transacao.valor, 0);
                 }
             }
@@ -1603,10 +1603,10 @@ const t50 = {
             let cidades = [];
             if (hoteis.length != 0) {
                 console.log("\x1b[32m[Buscar hotel por cidade]\x1b[0m\n");
-                hoteis.forEach((hotel) => {if (!cidades.includes(hotel.cidade)) cidades.push(hotel.cidade)});
+                hoteis.forEach((hotel) => {if (!cidades.includes(hotel.cidade.toLowerCase())) cidades.push(hotel.cidade.toLowerCase())});
                 console.log("\n[Cidades cadastradas]")
             for (let i = 0; i < cidades.length; i++) {
-                console.log(`${Number(i) + 1} - ${cidades[i]}`);
+                console.log(`${Number(i) + 1} - ${cidades[i][0].toUpperCase() + cidades[i].slice(1)}`);
             }
             console.log();
             const inputCidade = input(Number, (numero) => (Number.isInteger(numero) && numero > 0 && numero <= cidades.length));
